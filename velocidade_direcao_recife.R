@@ -69,3 +69,7 @@ requisicoes <- purrr::map(
                   "-07-2026"))
 
 requisicoes
+
+## Criar diretório ----
+
+dir.create("./dados_clim", showWarnings = FALSE)
