@@ -41,3 +41,31 @@ recife_bbox
 ## Autenticar token ----
 
 ecmwfr::wf_set_key(key = Sys.getenv("CDS_TOKEN"))
+
+## Fazer requizições ----
+
+requisicoes <- purrr::map(
+  stringr::str_pad(1:31, width = 2, pad = "0"),
+  \(dia){
+
+    list(
+      dataset_short_name = "reanalysis-era5-land",
+      variable = c("10m_u_component_of_wind", "10m_v_component_of_wind"),
+      year = "2026",
+      month = "07",
+      day = dia,
+      time = "12:00",
+      area = c(recife_bbox[2],
+               recife_bbox[1],
+               recife_bbox[4],
+               recife_bbox[3]),
+      format = "netcdf",
+      target = "era5land_vento.nc"
+      )
+
+    },
+  .progress = TRUE) |>
+  setNames(paste0(stringr::str_pad(1:31, width = 2, pad = "0"),
+                  "-07-2026"))
+
+requisicoes
