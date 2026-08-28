@@ -46,7 +46,7 @@ ecmwfr::wf_set_key(key = Sys.getenv("CDS_TOKEN"))
 
 requisicoes <- purrr::map(
   stringr::str_pad(1:31, width = 2, pad = "0"),
-  /(dia){
+  \(dia){
 
     list(
       dataset_short_name = "reanalysis-era5-land",
