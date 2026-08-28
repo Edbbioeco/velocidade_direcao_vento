@@ -35,3 +35,9 @@ ggplot() +
 recife_bbox <- recife |> sf::st_bbox()
 
 recife_bbox
+
+# Baixar rasters de velocidade e diração do vento ----
+
+## Autenticar token ----
+
+ecmwfr::wf_set_key(key = Sys.getenv("CDS_TOKEN"))
