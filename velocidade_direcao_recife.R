@@ -29,3 +29,9 @@ recife
 
 ggplot() +
   geom_sf(data = recife, color = "black")
+
+## Coordenadas do bbox ----
+
+recife_bbox <- recife |> sf::st_bbox()
+
+recife_bbox
