@@ -22,3 +22,10 @@ library(magick)
 
 recife <- geobr::read_municipality(code_muni = 2611606,
                                    year = 2025)
+
+## Visualizar ----
+
+recife
+
+ggplot() +
+  geom_sf(data = recife, color = "black")
