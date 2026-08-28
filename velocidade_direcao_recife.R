@@ -15,3 +15,10 @@ library(tidyterra)
 library(ggview)
 
 library(magick)
+
+# Shapefile de REcife ----
+
+## Baixar ----
+
+recife <- geobr::read_municipality(code_muni = 2611606,
+                                   year = 2025)
