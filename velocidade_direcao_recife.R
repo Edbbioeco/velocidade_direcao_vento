@@ -80,16 +80,25 @@ raster_vento <- purrr::map(
   requisicoes,
   \(requisicao){
 
-    ecmwfr::wf_request(
-      request  = requisicao,
-      transfer = TRUE,
-      path = paste0("./dados_clim/")
-    )
+    tryCatch({
 
-    unzip(zipfile = "dados_clim/era5land_vento.zip",
-          exdir = "dados_clim/era5land_vento")
+      ecmwfr::wf_request(
+        request  = requisicao,
+        transfer = TRUE,
+        path = paste0("./dados_clim/")
+        )
 
-    terra::rast("dados_clim/era5land_vento/data_0.nc")
+      unzip(zipfile = "dados_clim/era5land_vento.zip",
+            exdir = "dados_clim/era5land_vento")
+
+      terra::rast("dados_clim/era5land_vento/data_0.nc")
+
+      },
+      error = \(e){
+
+        NULL
+
+      })
 
     },
   .progress = TRUE) |>
