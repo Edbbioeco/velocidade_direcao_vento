@@ -46,7 +46,7 @@ ecmwfr::wf_set_key(key = Sys.getenv("CDS_TOKEN"))
 
 requisicoes <- purrr::map(
   stringr::str_pad(1:31, width = 2, pad = "0"),
-  \(dia){
+  /(dia){
 
     list(
       dataset_short_name = "reanalysis-era5-land",
@@ -73,3 +73,25 @@ requisicoes
 ## Criar diretório ----
 
 dir.create("./dados_clim", showWarnings = FALSE)
+
+## Baixar rasters ----
+
+raster_vento <- purrr::map(
+  requisicoes,
+  \(requisicao){
+
+    ecmwfr::wf_request(
+      request  = requisicao,
+      transfer = TRUE,
+      path = paste0("./dados_clim/")
+    )
+
+    unzip(unzip = "dados_clim/era5land_vento.zip",
+          exdir = "dados_clim/era5land_vento")
+
+    terra::rast("dados_clim/era5land_vento/data_0.nc")
+
+    },
+  .progress = TRUE) |>
+  setNames(paste0(stringr::str_pad(1:31, width = 2, pad = "0"),
+                  "-07-2026"))
