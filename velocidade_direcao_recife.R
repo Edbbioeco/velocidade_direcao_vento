@@ -86,7 +86,7 @@ raster_vento <- purrr::map(
       path = paste0("./dados_clim/")
     )
 
-    unzip(unzip = "dados_clim/era5land_vento.zip",
+    unzip(zipfile = "dados_clim/era5land_vento.zip",
           exdir = "dados_clim/era5land_vento")
 
     terra::rast("dados_clim/era5land_vento/data_0.nc")
