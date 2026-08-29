@@ -75,9 +75,10 @@ dir.create("./dados_clim", showWarnings = FALSE)
 
 ## Baixar rasters ----
 
-raster_vento <- purrr::map(
+raster_vento <- purrr::map2(
   requisicoes,
-  \(requisicao){
+  stringr::str_pad(1:31, width = 2, pad = "0"),
+  \(requisicao, dia){
 
     tryCatch({
 
@@ -87,10 +88,25 @@ raster_vento <- purrr::map(
         path = paste0("./dados_clim/")
         )
 
-      unzip(zipfile = "dados_clim/era5land_vento.zip",
-            exdir = "dados_clim/era5land_vento")
+      unzip(zipfile = paste0("dados_clim/era5land_vento_",
+                             dia,
+                             ".zip"),
+            exdir = paste0("dados_clim/era5land_vento_",
+                           dia),
+            overwrite = TRUE)
 
-      terra::rast("dados_clim/era5land_vento/data_0.nc")
+      file.remove(paste0("dados_clim/era5land_vento_",
+                          dia,
+                          ".zip"))
+
+      terra::rast(paste0("dados_clim/era5land_vento_",
+                         dia,
+                         "/data_0.nc"))
+
+      unlink(paste0("dados_clim/era5land_vento_",
+                    dia),
+             recursive = TRUE,
+             force = TRUE)
 
       },
       error = \(e){
