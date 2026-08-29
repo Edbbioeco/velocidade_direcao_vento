@@ -144,3 +144,18 @@ raster_vento_trat_vel <- purrr::map(
 
     },
   .progress = TRUE)
+
+## Visualizar ----
+
+purrr::imap(
+  raster_vento_trat_vel,
+  \(raster, data){
+
+    ggplot() +
+      tidyterra::geom_spatraster(data = raster) +
+      facet_wrap(~lyr) +
+      scale_fill_viridis_c() +
+      labs(title = data)
+
+    },
+  .progress = TRUE)
