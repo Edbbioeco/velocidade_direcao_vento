@@ -103,11 +103,6 @@ raster_vento <- purrr::map2(
                          dia,
                          "/data_0.nc"))
 
-      unlink(paste0("dados_clim/era5land_vento_",
-                    dia),
-             recursive = TRUE,
-             force = TRUE)
-
       },
       error = \(e){
 
