@@ -54,10 +54,10 @@ requisicoes <- purrr::map(
       month = "07",
       day = dia,
       time = "12:00",
-      area = c(recife_bbox[2],
-               recife_bbox[1],
-               recife_bbox[4],
-               recife_bbox[3]),
+      area = c(br_bbox[2],
+               br_bbox[1],
+               br_bbox[4],
+               br_bbox[3]),
       format = "netcdf",
       target = "era5land_vento.nc"
       )
