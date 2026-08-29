@@ -31,9 +31,9 @@ ggplot() +
 
 ## Coordenadas do bbox ----
 
-recife_bbox <- recife |> sf::st_bbox()
+br_bbox <- br |> sf::st_bbox()
 
-recife_bbox
+br_bbox
 
 # Baixar rasters de velocidade e diração do vento ----
 
