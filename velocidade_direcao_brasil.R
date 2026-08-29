@@ -140,7 +140,12 @@ raster_vento_trat_vel <- purrr::map(
 
     direcao <- (270 - atan2(raster$v10, raster$u10) * 180/pi) %% 360
 
-    c(velocidade, direcao)
+    raster <- c(velocidade, direcao)
+
+    names(raster) <- c("Velocidade (m/s)",
+                       "Direção (°)")
+
+    raster
 
     },
   .progress = TRUE)
