@@ -103,3 +103,18 @@ raster_vento <- purrr::map(
   .progress = TRUE) |>
   setNames(paste0(stringr::str_pad(1:31, width = 2, pad = "0"),
                   "-07-2026"))
+
+## Recortar paraa área do Brasil ----
+
+raster_vento_trat <- purrr::map(
+  raster_vento,
+  \(raster){
+
+    raster |>
+      terra::mask(br) |>
+      terra::crop(br)
+
+    },
+  .progress = TRUE)
+
+raster_vento_trat
