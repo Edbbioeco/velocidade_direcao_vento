@@ -22,7 +22,7 @@ library(magick)
 
 ## Baixar ----
 
-br <- geobr::read_country(year = 2025)
+br <- geobr::read_state(year = 2025)
 
 ## Visualizar ----
 
