@@ -20,15 +20,14 @@ library(magick)
 
 ## Baixar ----
 
-recife <- geobr::read_municipality(code_muni = 2611606,
-                                   year = 2025)
+br <- geobr::read_country(year = 2025)
 
 ## Visualizar ----
 
-recife
+br
 
 ggplot() +
-  geom_sf(data = recife, color = "black")
+  geom_sf(data = br, color = "black")
 
 ## Coordenadas do bbox ----
 
