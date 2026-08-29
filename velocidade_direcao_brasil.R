@@ -92,8 +92,6 @@ raster_vento <- purrr::map(
 
       terra::rast("dados_clim/era5land_vento/data_0.nc")
 
-      file.remove("dados_clim/era5land_vento/data_0.nc")
-
       },
       error = \(e){
 
