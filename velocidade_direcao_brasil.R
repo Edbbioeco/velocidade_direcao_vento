@@ -59,7 +59,7 @@ requisicoes <- purrr::map(
                br_bbox[4],
                br_bbox[3]),
       format = "netcdf",
-      target = "era5land_vento.nc"
+      target = paste0("era5land_vento_", dia, ".nc")
       )
 
     },
