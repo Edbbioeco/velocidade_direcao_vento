@@ -174,3 +174,72 @@ purrr::imap(
 
     },
   .progress = TRUE)
+
+## Criar mapas ----
+
+mapas <- purrr::imap(
+  raster_vento_trat_vel,
+  \(raster, data){
+
+    velocidade <- ggplot() +
+      tidyterra::geom_spatraster(data = raster[["Velocidade (m/s)"]]) +
+      facet_wrap(~lyr) +
+      scale_fill_viridis_c(na.value = "transparent",
+                           guide = guide_colourbar(
+                             title = "Velocidade (m/s)",
+                             title.position = "top",
+                             title.hjust = 0.5,
+                             barwidth = 30,
+                             barheight = 2.5,
+                             frame.colour = "black",
+                             ticks.colour = "black"
+                           )) +
+      geom_sf(data = br, color = "black", fill = "transparent",
+              linewidth = 1) +
+      theme_bw() +
+      theme(axis.text = element_text(size = 20, color = "black"),
+            legend.text = element_text(size = 20, color = "black"),
+            legend.title = element_text(size = 20, color = "black"),
+            legend.position = "bottom",
+            strip.text = element_text(size = 30, color = "black"),
+            strip.background = element_rect(color = "black",
+                                            linewidth = 1),
+            panel.border = element_rect(color = "black", linewidth = 1))
+
+    direcao <- ggplot() +
+      tidyterra::geom_spatraster(data = raster[["Direção (°)"]]) +
+      facet_wrap(~lyr) +
+      scale_fill_viridis_c(na.value = "transparent",
+                           guide = guide_colourbar(
+                             title = "Direção (°)",
+                             title.position = "top",
+                             title.hjust = 0.5,
+                             barwidth = 30,
+                             barheight = 2.5,
+                             frame.colour = "black",
+                             ticks.colour = "black"
+                           )) +
+      geom_sf(data = br, color = "black", fill = "transparent",
+              linewidth = 1) +
+      theme_bw() +
+      theme(axis.text = element_text(size = 20, color = "black"),
+            legend.text = element_text(size = 20, color = "black"),
+            legend.title = element_text(size = 20, color = "black"),
+            legend.position = "bottom",
+            strip.text = element_text(size = 30, color = "black"),
+            strip.background = element_rect(color = "black",
+                                            linewidth = 1),
+            panel.border = element_rect(color = "black", linewidth = 1))
+
+    (velocidade + direcao) +
+      patchwork::plot_annotation(
+        title = data,
+        theme = theme(plot.title = element_text(size = 30,
+                                                color = "black",
+                                                hjust = 0.5))) +
+      ggview::canvas(height = 10, width = 14)
+
+  },
+    .progress = TRUE)
+
+mapas
