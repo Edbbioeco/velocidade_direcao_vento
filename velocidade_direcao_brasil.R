@@ -185,6 +185,8 @@ df_dir <- purrr::imap_dfr(
       aggregate(fact = 20, fun = "mean") |>
       as.data.frame(xy = TRUE) |>
       dplyr::mutate(angle_rad = (90 - (`Direção (°)` + 180)) * pi / 180,
+                    xend = x + 3 * cos(angle_rad),
+                    yend = y + 3 * sin(angle_rad),
                     lyr = data)
 
     },
