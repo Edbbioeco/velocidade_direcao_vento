@@ -185,8 +185,6 @@ df_dir <- purrr::imap_dfr(
       aggregate(fact = 20, fun = "mean") |>
       as.data.frame(xy = TRUE) |>
       dplyr::mutate(angle_rad = (90 - (`Direção (°)` + 180)) * pi / 180,
-                    xend = x + 3 * cos(angle_rad),
-                    yend = y + 3 * sin(angle_rad),
                     lyr = data)
 
     },
@@ -239,48 +237,3 @@ mapas <- purrr::imap(
     .progress = TRUE)
 
 mapas
-
-## Mapa animado ----
-
-mapa <- ggplot() +
-  tidyterra::geom_spatraster(data = raster_vento_trat_vel |>
-                               purrr::map(~.x[[1]]) |>
-                               terra::rast()) +
-  scale_fill_viridis_c(
-    na.value = "transparent",
-    guide = guide_colourbar(
-      title = "Velocidade do vento (m/s)",
-      title.position = "top",
-      title.hjust = 0.5,
-      barwidth = 30,
-      barheight = 2.5,
-      frame.colour = "black",
-      ticks.colour = "black"
-    )
-  ) +
-  geom_sf(data = br, color = "black", fill = "transparent", linewidth = 1) +
-  geom_spoke(data = df_dir,
-             aes(x = x, y = y, angle = angle_rad, radius = 3),
-             arrow = arrow(length = unit(0.1, "cm")),
-             color = "orange") +
-  labs(title = "Velocidade e direção do vento no Brasil — {current_frame}") +
-  theme_bw() +
-  theme(
-    axis.text = element_text(size = 14, color = "black"),
-    legend.text = element_text(size = 14, color = "black"),
-    legend.title = element_text(size = 14, color = "black"),
-    legend.position = "bottom",
-    panel.border = element_rect(color = "black", linewidth = 1),
-    plot.title = element_text(size = 20, color = "black", hjust = 0.5)
-  ) +
-  transition_manual(lyr)
-
-mapa_animado <- gganimate::animate(
-  mapa,
-  nframes = 31,
-  fps = 0.5,
-  width = 1200, height = 900,
-  renderer = gifski_renderer()
-)
-
-mapa_animado
