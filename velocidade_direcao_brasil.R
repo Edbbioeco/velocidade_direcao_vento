@@ -175,6 +175,23 @@ purrr::imap(
     },
   .progress = TRUE)
 
+## Calcular a direão das setas ----
+
+df_dir <- purrr::imap_dfr(
+  raster_vento_trat_vel,
+  \(raster, data){
+
+    raster |>
+      aggregate(fact = 20, fun = "mean") |>
+      as.data.frame(xy = TRUE) |>
+      dplyr::mutate(angle_rad = (90 - (`Direção (°)` + 180)) * pi / 180,
+                    Data = data)
+
+    },
+  .progress = TRUE)
+
+df_dir
+
 ## Criar mapas ----
 
 mapas <- purrr::imap(
