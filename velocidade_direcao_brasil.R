@@ -213,7 +213,7 @@ mapas <- purrr::imap(
       geom_sf(data = br, color = "black", fill = "transparent",
               linewidth = 1) +
       geom_spoke(data = df_dir |>
-                   dplyr::filter(Data == data),
+                   dplyr::filter(lyr == data),
                  aes(x = x, y = y,
                      angle = angle_rad,
                      radius = 3),
