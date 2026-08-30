@@ -237,3 +237,33 @@ mapas <- purrr::imap(
     .progress = TRUE)
 
 mapas
+
+## Gif animado ----
+
+### Criar gif ----
+
+imagens <- purrr::map(
+  mapas,
+  purrr::in_parallel(
+
+    \(p){
+
+      img <- magick::image_graph(height = 10 * 150,
+                                 width = 16 * 150,
+                                 res = 150)
+
+      grid::grid.newpage()
+
+      grid::grid.draw(ggplot2::ggplotGrob(p))
+
+      dev.off()
+
+      img
+
+    }
+
+  ),
+  .progress = TRUE) |>
+  magick::image_join()
+
+imagens
