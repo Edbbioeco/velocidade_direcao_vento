@@ -12,8 +12,6 @@ library(terra)
 
 library(tidyterra)
 
-library(patchwork)
-
 library(ggview)
 
 library(magick)
