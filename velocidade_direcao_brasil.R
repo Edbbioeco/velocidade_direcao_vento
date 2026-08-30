@@ -273,3 +273,9 @@ imagens
 gif_vento <- imagens |> magick::image_animate(fps = 1)
 
 gif_vento
+
+## Exportar gif ----
+
+gif_vento |>
+  magick::image_scale("1280x1066!") |>
+  magick::image_write("./velocidade_direcao_vento.gif")
