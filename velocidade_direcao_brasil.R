@@ -185,7 +185,7 @@ df_dir <- purrr::imap_dfr(
       aggregate(fact = 20, fun = "mean") |>
       as.data.frame(xy = TRUE) |>
       dplyr::mutate(angle_rad = (90 - (`Direção (°)` + 180)) * pi / 180,
-                    Data = data)
+                    lyr = data)
 
     },
   .progress = TRUE)
@@ -219,6 +219,8 @@ mapas <- purrr::imap(
                      radius = 3),
                  arrow = arrow(length = unit(0.1, "cm")),
                  color = "orange") +
+      labs(title = paste0("Velocidade e direção do vento do Brasil para a data de ",
+                          data)) +
       theme_bw() +
       theme(axis.text = element_text(size = 20, color = "black"),
             legend.text = element_text(size = 20, color = "black"),
@@ -227,10 +229,11 @@ mapas <- purrr::imap(
             strip.text = element_text(size = 30, color = "black"),
             strip.background = element_rect(color = "black",
                                             linewidth = 1),
-            panel.border = element_rect(color = "black", linewidth = 1)) +
+            panel.border = element_rect(color = "black", linewidth = 1),
+            plot.title = element_text(size = 30, color = "black", hjust = 0.5)) +
       ggview::canvas(height = 10, width = 14)
 
-  },
+    },
     .progress = TRUE)
 
 mapas
