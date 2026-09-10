@@ -65,7 +65,7 @@ requisicoes <- purrr::map(
   },
   .progress = TRUE) |>
   setNames(paste0("03-08-2026 ",
-                  sprintf("%02d:00", 0:23)))
+                  sprintf("%02dh00", 0:23)))
 
 requisicoes
 
