@@ -68,3 +68,49 @@ requisicoes <- purrr::map(
                   sprintf("%02d:00", 0:23)))
 
 requisicoes
+
+## Baixar rasters ----
+
+dir_tmp <- tempdir()
+
+raster_vento <- purrr::map2(
+  requisicoes,
+  sprintf("%02d:00", 0:23),
+  \(requisicao, hora){
+
+    tryCatch({
+
+      ecmwfr::wf_request(
+        request  = requisicao,
+        transfer = TRUE,
+        path = dir_tmp)
+
+      unzip(zipfile = file.path(dir_tmp,
+                                paste0("era5land_vento_",
+                                       hora,
+                                       ".zip")),
+            exdir = file.path(dir_tmp,
+                              paste0("era5land_vento_",
+                                     hora)),
+            overwrite = TRUE)
+
+      terra::rast(file.path(file.path(dir_tmp,
+                                      paste0("era5land_vento_",
+                                             hora)),
+                            "data_0.nc"))
+
+      file.remove(file.path(dir_tmp,
+                            paste0("era5land_vento_",
+                                   hora, ".zip")))
+
+    },
+    error = \(e){
+
+      NULL
+
+    })
+
+  },
+  .progress = TRUE) |>
+  setNames(paste0("03-08-2026 ",
+                  sprintf("%02d:00", 0:23)))
