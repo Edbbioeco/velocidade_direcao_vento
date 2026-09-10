@@ -75,7 +75,7 @@ dir_tmp <- tempdir()
 
 raster_vento <- purrr::map2(
   requisicoes,
-  sprintf("%02d:00", 0:23),
+  sprintf("%02dh00", 0:23),
   \(requisicao, hora){
 
     tryCatch({
