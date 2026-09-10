@@ -28,3 +28,9 @@ br
 
 ggplot() +
   geom_sf(data = br, color = "black")
+
+## Coordenadas do bbox ----
+
+br_bbox <- br |> sf::st_bbox()
+
+br_bbox
