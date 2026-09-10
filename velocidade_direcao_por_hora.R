@@ -96,14 +96,16 @@ raster_vento <- purrr::map2(
                                      hora)),
             overwrite = TRUE)
 
-      terra::rast(file.path(file.path(dir_tmp,
-                                      paste0("era5land_vento_",
-                                             hora)),
-                            "data_0.nc"))
+      r <- terra::rast(file.path(file.path(dir_tmp,
+                                           paste0("era5land_vento_",
+                                                  hora)),
+                                 "data_0.nc"))
 
       file.remove(file.path(dir_tmp,
                             paste0("era5land_vento_",
                                    hora, ".zip")))
+
+      r
 
     },
     error = \(e){
