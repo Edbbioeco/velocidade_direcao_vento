@@ -59,7 +59,9 @@ requisicoes <- purrr::map(
                br_bbox[4],
                br_bbox[3]),
       format = "netcdf",
-      target = paste0("era5land_vento_", hora, ".nc")
+      target = paste0("era5land_vento_",
+                      stringr::str_replace(hora, ":", "h"),
+                      ".nc")
     )
 
   },
