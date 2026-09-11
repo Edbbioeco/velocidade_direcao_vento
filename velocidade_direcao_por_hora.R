@@ -153,3 +153,26 @@ raster_vento_trat_vel <- purrr::map(
 
   },
   .progress = TRUE)
+
+## Visualizar ----
+
+purrr::imap(
+  raster_vento_trat_vel,
+  \(raster, data){
+
+    velocidade <- ggplot() +
+      tidyterra::geom_spatraster(data = raster[["Velocidade (m/s)"]]) +
+      facet_wrap(~lyr) +
+      scale_fill_viridis_c(na.value = "transparent")
+
+    direcao <- ggplot() +
+      tidyterra::geom_spatraster(data = raster[["Direção (°)"]]) +
+      facet_wrap(~lyr) +
+      scale_fill_viridis_c(na.value = "transparent")
+
+    (velocidade + direcao) +
+      labs(title = data) +
+      ggview::canvas(height = 10, width = 14)
+
+  },
+  .progress = TRUE)
