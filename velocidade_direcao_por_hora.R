@@ -122,7 +122,7 @@ raster_vento <- purrr::map2(
 ## Recortar paraa área do Brasil ----
 
 raster_vento_trat <- purrr::map(
-  raster_vento,
+  raster_vento |> purrr::compact(),
   \(raster){
 
     raster |>
